@@ -10,7 +10,7 @@ namespace KontiOpgave
     {
         public void PasswordChanger()
         {
-            string password = "Password", bruger = "bruger", samletlog, brugerlog, passlog;
+            string password = "Password", bruger = "bruger", samletlog;
             Console.Write("Indtast et brugernavn: ");
             bruger = Console.ReadLine();
             LogInd.Bruger(bruger);
