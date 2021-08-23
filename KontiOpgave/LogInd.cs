@@ -8,6 +8,7 @@ namespace KontiOpgave
 {
     public class LogInd
     {
+        // Checks if the new username is valid
         public static void Bruger(string bruger)
         {
             int fejl = 0;
@@ -29,6 +30,7 @@ namespace KontiOpgave
             }
             while (fejl != 0);
         }
+        // checks if the new password is valid
         public static void Password(string password)
         {
             int fejl = 0;
@@ -43,7 +45,7 @@ namespace KontiOpgave
                 {
                     fejl = 0;
 
-                    if (password.Length >= 12)
+                    if (password.Length >= 6)
                     {
                         fejl = 0;
 
@@ -69,21 +71,37 @@ namespace KontiOpgave
             }
             while (fejl != 0);
         }
-        public static void Logind(string bruger, string kode)
+        // Checks if the login is valid. 
+        public static void Logind(string AflæstBruger, string kode)
         {
+            string bruger = "";
             int fejl = 0;
+            // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Tec\Desktop\Logind.txt");
+            // this do while continues until password and username are approved
             do
             {
-                if (fejl == 1)
-                {
-                    Console.WriteLine("Det ser udtil du har tastet noget forkert, prøv igen");
-                    Console.Write("Brugernavn: ");
-                    bruger = Console.ReadLine();
-                    Console.Write("Password: ");
-                    kode = Console.ReadLine();
+                do
+                {       
+                    // As long as password and username are not approved, the console outputs an error message, and asks for new input
+                    if (fejl == 1)
+                    {
+                        Console.WriteLine("Det ser udtil du har tastet noget forkert, prøv igen");
+                        Console.Write("Brugernavn: ");
+                        AflæstBruger = Console.ReadLine();
+                        Console.Write("Password: ");
+                        kode = Console.ReadLine();
+                        bruger = AflæstBruger + "|";
+                        fejl = 0;
+                    }
+                    if (bruger == kode)
+                    {
+                        fejl = 1;
+                    }
                 }
+                while (fejl != 0);
 
+                // We look through each line in the text file. If the username exists, we check if the next word matches the password
                 foreach (string line in lines)
                 {
                     if (line.Contains(bruger))
@@ -92,6 +110,7 @@ namespace KontiOpgave
                         if (line.Contains(kode))
                         {
                             fejl = 0;
+                            return;
                         }
                         else
                         {
@@ -105,8 +124,7 @@ namespace KontiOpgave
                 }
             }
             while (fejl != 0);
-            Console.WriteLine("Du er nu logget ind");
-            Console.ReadKey();
+            
         }
     }
 }

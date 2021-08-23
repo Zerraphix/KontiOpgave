@@ -9,19 +9,18 @@ namespace KontiOpgave
             Password();
             static void Password()
             {
-                string password = "Password", bruger = "bruger", samletlog, brugerlog, passlog;               
+                string bruger, brugerlog, passlog;   
+                
 
                 Console.WriteLine("Lad os nu prøve at logge ind med de nylige oprettet bruger navn og password.");
                 Console.Write("Brugernavn: ");
-                brugerlog = Console.ReadLine();
+                bruger = Console.ReadLine();
                 Console.Write("Password: ");
                 passlog = Console.ReadLine();
+                brugerlog = bruger + "|";
                 LogInd.Logind(brugerlog, passlog);
-                return;
-
-
-
-                //yOooo, testing that commit push laddie
+                Console.WriteLine("Du er nu logget ind");
+                Console.ReadKey();
             }
         }
     }

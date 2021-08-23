@@ -8,9 +8,11 @@ namespace KontiOpgave
 {
     public class Menu
     {
+        // Makes a list combining methods.
         public static List<Option> options;
         public void MenuOversigt()
         {
+            //Put inputs into the list of options
             options = new List<Option>
             {
                 new Option("Se dine konti", () => StartMenu("SeDineKonti")),
@@ -22,18 +24,19 @@ namespace KontiOpgave
             // Set the default index of the selected item to be the first
             int index = 0;
 
-            // Write the menu out
+            
             Console.SetCursorPosition(0, 7);
-            WriteMenu(options, options[index]);
 
             // Store key info in here
             ConsoleKeyInfo keyinfo;
             do
             {
+                // Write the menu out
                 WriteMenu(options, options[index]);
                 keyinfo = Console.ReadKey();
 
                 // Handle each key input (down arrow will write the menu again with a different selected item)
+                // Only the up and down arrow keys is assigned to make the switch between options
                 if (keyinfo.Key == ConsoleKey.DownArrow)
                 {
                     if (index + 1 < options.Count)
@@ -61,7 +64,7 @@ namespace KontiOpgave
 
             Console.ReadKey();
         }
-        // Default action of all the options. You can create more methods
+        // Default action of all the options
         static void StartMenu(string message)
         {
             Console.Clear();
@@ -83,7 +86,7 @@ namespace KontiOpgave
 
             }
         }
-
+        // WriteMenu is the display of each different option which the user can choose between.
         static void WriteMenu(List<Option> options, Option selectedOption)
         {
 
@@ -94,6 +97,7 @@ namespace KontiOpgave
             Console.WriteLine("█    █  ██████  █  █ █  █ █   ");
             Console.WriteLine("█████  █      █ █   █   █  █\n");
 
+            // This is the "arrow" that symbolizes the selection
             foreach (Option option in options)
             {
                 if (option == selectedOption)
@@ -105,12 +109,13 @@ namespace KontiOpgave
                     Console.Write(" ");
                 }
 
+                // Writes out our class option combination of name and selection
                 Console.WriteLine(option.Name);
             }
         }
     }
 
-
+    // Our list that combines names from the list and selection, to write out in a combined text
     public class Option
     {
         public string Name { get; }
