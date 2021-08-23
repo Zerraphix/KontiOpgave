@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace KontiOpgave
 {
-    class Menu
+    public class Menu
     {
         public static List<Option> options;
-        static void Main(string[] args)
+        public void MenuOversigt()
         {
             options = new List<Option>
             {
-                new Option("Start game", () => StartMenu("Start")),
-                new Option("Customize", () =>  StartMenu("Custom")),
-                new Option("Filler", () =>  StartMenu("Filler")),
-                new Option("Exit", () => Environment.Exit(0)),
+                new Option("Se dine konti", () => StartMenu("SeDineKonti")),
+                new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel")),
+                new Option("Skift dit password", () =>  StartMenu("SkiftDitPassword")),
+                new Option("Log ud", () => Environment.Exit(0)),
             };
 
             // Set the default index of the selected item to be the first
@@ -67,14 +67,16 @@ namespace KontiOpgave
             Console.Clear();
             switch (message)
             {
-                case "Start":
-                    Snake snake = new Snake();
-                    snake.ShowBorder();
-                    snake.MainLoop();
+                case "SeDineKonti":
+
+                    //her skal den kalde en metode
                     break;
-                case "Custom":
-                    Custom custom = new Custom();
-                    custom.titel();
+                case "LavEnOverførsel":
+
+                    //her skal den kalde en metode
+                    break;
+                case "SkiftDitPassword":
+                    //her skal den kalde en metode
                     break;
                 default:
                     break;
@@ -82,18 +84,15 @@ namespace KontiOpgave
             }
         }
 
-
-
         static void WriteMenu(List<Option> options, Option selectedOption)
         {
-            Console.WindowHeight = 17;
-            Console.WindowWidth = 34;
+
             Console.Clear();
-            Console.WriteLine(" ████  ██   █     █     █  ██ ████");
-            Console.WriteLine("█      █ █  █    █ █    █ █   █   ");
-            Console.WriteLine(" ████  █  █ █   █   █   ██    ███ ");
-            Console.WriteLine("     █ █   ██  █ ███ █  █ █   █   ");
-            Console.WriteLine(" ████  █    █ █       █ █  ██ ████\n");
+            Console.WriteLine("█████     ██    █    █  █  █");
+            Console.WriteLine("█    █   █  █   ██   █  █ █ ");
+            Console.WriteLine("█████   █    █  █ █  █  ██   ");
+            Console.WriteLine("█    █  ██████  █  █ █  █ █   ");
+            Console.WriteLine("█████  █      █ █   █   █  █\n");
 
             foreach (Option option in options)
             {

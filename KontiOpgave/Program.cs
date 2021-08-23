@@ -19,6 +19,8 @@ namespace KontiOpgave
                 LogInd.Logind(brugerlog, passlog);
                 return;
 
+
+
                 //yOooo, testing that commit push laddie
             }
         }
