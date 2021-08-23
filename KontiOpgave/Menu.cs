@@ -17,7 +17,7 @@ namespace KontiOpgave
             {
                 new Option("Se dine konti", () => StartMenu("SeDineKonti")),
                 new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel")),
-                new Option("Skift dit password", () =>  StartMenu("SkiftDitPassword")),
+                new Option("Skift dit password", () =>  StartMenu("Settings")),
                 new Option("Log ud", () => Environment.Exit(0)),
             };
 
@@ -78,7 +78,7 @@ namespace KontiOpgave
 
                     //her skal den kalde en metode
                     break;
-                case "SkiftDitPassword":
+                case "Settings":
                     //her skal den kalde en metode
                     break;
                 default:
