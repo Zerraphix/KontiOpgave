@@ -6,6 +6,7 @@ namespace KontiOpgave
     {
         static void Main(string[] args)
         {
+            //testAfCommit
             static void Password()
             {
                 string password = "Password", bruger = "bruger", samletlog, brugerlog, passlog;
