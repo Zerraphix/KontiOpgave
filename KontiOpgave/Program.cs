@@ -6,6 +6,7 @@ namespace KontiOpgave
     {
         static void Main(string[] args)
         {
+            Password();
             static void Password()
             {
                 string password = "Password", bruger = "bruger", samletlog, brugerlog, passlog;
@@ -18,7 +19,7 @@ namespace KontiOpgave
                 Console.ReadKey();
 
                 samletlog = bruger + " " + password;
-                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\joekn\Desktop\Ny mappe (3)\Logind.txt", true))
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Tec\Desktop\Logind.txt", true))
                 {
                     file.WriteLine(samletlog);
                 }

@@ -72,7 +72,7 @@ namespace KontiOpgave
         public static void Logind(string bruger, string kode)
         {
             int fejl = 0;
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\joekn\Desktop\Ny mappe (3)\Logind.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Tec\Desktop\Logind.txt");
             do
             {
                 if (fejl == 1)
