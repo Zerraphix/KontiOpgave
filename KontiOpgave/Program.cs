@@ -8,7 +8,7 @@ namespace KontiOpgave
         {
             static void Password()
             {
-                string password = "bitch", bruger = "bruger", samletlog, brugerlog, passlog;
+                string password = "Password", bruger = "bruger", samletlog, brugerlog, passlog;
                 Console.Write("Indtast et brugernavn: ");
                 bruger = Console.ReadLine();
                 LogInd.Bruger(bruger);
