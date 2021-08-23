@@ -30,6 +30,8 @@ namespace KontiOpgave
                 passlog = Console.ReadLine();
                 LogInd.Logind(brugerlog, passlog);
                 return;
+
+                //yOooo, testing that commit push laddie
             }
         }
     }
