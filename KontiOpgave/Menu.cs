@@ -71,7 +71,8 @@ namespace KontiOpgave
             switch (message)
             {
                 case "SeDineKonti":
-
+                    Balance balence = new Balance();
+                    balence.BalanceMethod();
                     //her skal den kalde en metode
                     break;
                 case "LavEnOverførsel":
