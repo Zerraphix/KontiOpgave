@@ -78,7 +78,7 @@ namespace KontiOpgave
                     break;
                 case "LavEnOverførsel":
                     Transaction transaction = new Transaction();
-                    transaction.TranferMoneyBetweenAccounts();
+                    transaction.MenuOversigtTransaction();
                     //her skal den kalde en metode
                     break;
                 case "LavNyKonto":

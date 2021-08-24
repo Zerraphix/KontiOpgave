@@ -23,6 +23,122 @@ namespace KontiOpgave
         // if it is a transfer to themselves - update the recieving file with the new amount
         // ask the user if they want to return to the main menu or make another transaction
 
+        // Makes a list combining methods.
+        public static List<Option> options;
+        public void MenuOversigtTransaction()
+        {
+            //Put inputs into the list of options
+            options = new List<Option>
+            {
+                new Option("Sæt penge ind på din NemKonto", () => StartMenu("SætPengeInd")),
+                new Option("Overfør penge mellem dine egne konti", () =>  StartMenu("OverførMellemEgne")),
+                new Option("Overfør penge til en anden konto", () =>  StartMenu("OverførTilAndre")),
+                new Option("Hæve pænge fra egne konti", () => StartMenu("HævPenge")),
+                new Option("Tryk 'escape' for at vende tilbage til hovedmenuen", () => StartMenu("Afslut")),
+            };
+
+            // Set the default index of the selected item to be the first
+            int index = 0;
+
+
+            Console.SetCursorPosition(0, 7);
+
+            // Store key info in here
+            ConsoleKeyInfo keyinfo;
+            do
+            {
+                // Write the menu out
+                WriteMenu(options, options[index]);
+                keyinfo = Console.ReadKey();
+
+                // Handle each key input (down arrow will write the menu again with a different selected item)
+                // Only the up and down arrow keys is assigned to make the switch between options
+                if (keyinfo.Key == ConsoleKey.DownArrow)
+                {
+                    if (index + 1 < options.Count)
+                    {
+                        index++;
+                        WriteMenu(options, options[index]);
+                    }
+                }
+                if (keyinfo.Key == ConsoleKey.UpArrow)
+                {
+                    if (index - 1 >= 0)
+                    {
+                        index--;
+                        WriteMenu(options, options[index]);
+                    }
+                }
+                // Handle different action for the option
+                if (keyinfo.Key == ConsoleKey.Enter)
+                {
+                    options[index].Selected.Invoke();
+                    index = 0;
+                }
+            }
+            while (keyinfo.Key != ConsoleKey.Escape);
+
+            Console.ReadKey();
+        }
+        // Default action of all the options
+        static void StartMenu(string message)
+        {
+                    Transaction transaction = new Transaction();
+            Console.Clear();
+            switch (message)
+            {
+                case "SætPengeInd":
+                    transaction.PutMoneyIntoAccount();
+                    //her skal den kalde en metode
+                    break;
+                case "OverførMellemEgne":                    
+                    transaction.TranferMoneyBetweenAccounts();
+                    //her skal den kalde en metode
+                    break;
+                case "OverførTilAndre":
+                    transaction.TranferMoneyAwayFromAccount();
+                    break;
+                case "HævPenge":
+                    transaction.TakeMoneyOutOfTheAccount();
+                    //her skal den kalde en metode
+                    break;
+                case "Afslut":
+
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        // WriteMenu is the display of each different option which the user can choose between.
+        static void WriteMenu(List<Option> options, Option selectedOption)
+        {
+
+            Console.Clear();
+            Console.WriteLine("    █████     ██    █    █  █  █");
+            Console.WriteLine("    █    █   █  █   ██   █  █ █ ");
+            Console.WriteLine("    █████   █    █  █ █  █  ██  ");
+            Console.WriteLine("    █    █  ██████  █  █ █  █ █ ");
+            Console.WriteLine("    █████  █      █ █   ██  █  █\n");
+            Console.WriteLine("*** Indsæt, hæv og lav overførsler ***");
+
+            // This is the "arrow" that symbolizes the selection
+            foreach (Option option in options)
+            {
+                if (option == selectedOption)
+                {
+                    Console.Write("> ");
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+
+                // Writes out our class option combination of name and selection
+                Console.WriteLine(option.Name);
+            }
+        }
+
         public void PutMoneyIntoAccount()
         {
             // get the filepath 
