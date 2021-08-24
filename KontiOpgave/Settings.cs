@@ -20,7 +20,7 @@ namespace KontiOpgave
             Console.ReadKey();
 
             samletlog = bruger + " " + password;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Tec\Desktop\Logind.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\Skole\Programmering\Konti\KontiOpgave\KontiOpgave\LogInd\Logind.txt", true))
             {
                 file.WriteLine(samletlog);
             }
