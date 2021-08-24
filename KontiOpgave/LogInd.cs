@@ -77,7 +77,7 @@ namespace KontiOpgave
             string bruger = "";
             int fejl = 0;
             // Reads the file where users and passwords are saved
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Skole\Programmering\Konti\KontiOpgave\KontiOpgave\LogInd\Logind.txt");
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Tec\Desktop\_weeks_8_h1\___programming\__1_bank_konti_group_project\KontiOpgave\LogInd\Logind.txt");
             // this do while continues until password and username are approved
             do
             {

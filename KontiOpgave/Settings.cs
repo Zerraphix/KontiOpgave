@@ -24,6 +24,7 @@ namespace KontiOpgave
             {
                 file.WriteLine(samletlog);
             }
+
         }
     }
 }

@@ -18,6 +18,7 @@ namespace KontiOpgave
                 new Option("Se dine konti", () => StartMenu("SeDineKonti")),
                 new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel")),
                 new Option("Skift dit password", () =>  StartMenu("Settings")),
+                new Option("Opret en ny konto", () => StartMenu("LavNyKonto")),
                 new Option("Log ud", () => Environment.Exit(0)),
             };
 
@@ -78,6 +79,10 @@ namespace KontiOpgave
                 case "LavEnOverførsel":
 
                     //her skal den kalde en metode
+                    break;
+                case "LavNyKonto":
+                    Transaction transaction= new Transaction();
+                    transaction.CreateAccount();
                     break;
                 case "Settings":
                     //her skal den kalde en metode
