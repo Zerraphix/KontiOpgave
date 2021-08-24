@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace KontiOpgave
 {
@@ -10,6 +11,10 @@ namespace KontiOpgave
     {
         public void PasswordChanger()
         {
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string LogIndPath;
+            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
             string password = "Password", bruger = "bruger", samletlog;
             Console.Write("Indtast et brugernavn: ");
             bruger = Console.ReadLine();
@@ -20,7 +25,7 @@ namespace KontiOpgave
             Console.ReadKey();
 
             samletlog = bruger + " " + password;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\Skole\Programmering\Konti\KontiOpgave\KontiOpgave\LogInd\Logind.txt", true))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(LogIndPath, true))
             {
                 file.WriteLine(samletlog);
             }

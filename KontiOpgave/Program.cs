@@ -6,27 +6,25 @@ namespace KontiOpgave
     {
         static void Main(string[] args)
         {
-            Password();
-            static void Password()
-            {
-                string bruger, brugerlog, passlog;
 
-                Console.WindowHeight = 14;
-                Console.WindowWidth = 29;
-                Console.WriteLine("Log ind.");
-                Console.Write("Brugernavn: ");
-                bruger = Console.ReadLine();
-                Console.Write("Password: ");
-                passlog = Console.ReadLine();
-                brugerlog = bruger + "|";
-                LogInd.Logind(brugerlog, passlog);
-                Console.WriteLine("Du er nu logget ind");
-                Console.ReadKey();
+            string bruger, brugerlog, passlog;
 
-                // Sending over to menu
-                Menu menu = new Menu();
-                menu.MenuOversigt();
-            }
+            Console.WindowHeight = 14;
+            Console.WindowWidth = 29;
+            Console.WriteLine("Log ind.");
+            Console.Write("Brugernavn: ");
+            bruger = Console.ReadLine();
+            Console.Write("Password: ");
+            passlog = Console.ReadLine();
+            brugerlog = bruger + "|";
+            LogInd.Logind(brugerlog, passlog);
+            Console.WriteLine("Du er nu logget ind");
+            Console.ReadKey();
+
+            // Sending over to menu
+            Menu menu = new Menu();
+            menu.MenuOversigt();
+
         }
     }
 }

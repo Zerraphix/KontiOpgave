@@ -12,6 +12,10 @@ namespace KontiOpgave
 
         public void CreateAccount()
         {
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string AccountPath;
+            AccountPath = projectDirectory + @"\kontier";
             // Creating a new list
             List<CustomerProperties> customerProperties = new List<CustomerProperties>();
 
@@ -25,12 +29,10 @@ namespace KontiOpgave
             customer.AccountFunds = 0;
             customerProperties.Add(customer);
 
-            string filePath = @"C:\Users\Tec\Desktop\_weeks_8_h1\___programming\__1_bank_konti_group_project\KontiOpgave\kontier\";
-
             // create new file
             foreach (var item in customerProperties)
             {
-                using StreamWriter file = new(filePath + item.AccountName + ".txt", append: true) ;
+                using StreamWriter file = new(AccountPath + item.AccountName + ".txt", append: true) ;
                 file.WriteAsync(item.AccountName + "\n");
                 file.WriteAsync(item.AccountFunds.ToString());
             }
