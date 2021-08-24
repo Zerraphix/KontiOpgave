@@ -33,8 +33,10 @@ namespace KontiOpgave
             foreach (var item in customerProperties)
             {
                 using StreamWriter file = new(AccountPath + item.AccountName + ".txt", append: true) ;
-                file.WriteAsync(item.AccountName + "\n");
-                file.WriteAsync(item.AccountFunds.ToString());
+                {
+                    file.WriteAsync(item.AccountName + "\n");
+                    file.WriteAsync(item.AccountFunds.ToString());
+                }
             }
         }
 

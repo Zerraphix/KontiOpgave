@@ -24,7 +24,7 @@ namespace KontiOpgave
             LogInd.Password(password);
             Console.ReadKey();
 
-            samletlog = bruger + " " + password;
+            samletlog = bruger + "| " + password;
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(LogIndPath, true))
             {
                 file.WriteLine(samletlog);
