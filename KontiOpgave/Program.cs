@@ -9,8 +9,7 @@ namespace KontiOpgave
 
             string bruger, brugerlog, passlog;
 
-            Console.WindowHeight = 14;
-            Console.WindowWidth = 29;
+
             Console.WriteLine("Log ind.");
             Console.Write("Brugernavn: ");
             bruger = Console.ReadLine();

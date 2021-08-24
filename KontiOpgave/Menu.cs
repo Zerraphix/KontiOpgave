@@ -77,12 +77,13 @@ namespace KontiOpgave
                     //her skal den kalde en metode
                     break;
                 case "LavEnOverførsel":
-
+                    Transaction transaction = new Transaction();
+                    transaction.TakeMoneyOutOfTheAccount();
                     //her skal den kalde en metode
                     break;
                 case "LavNyKonto":
-                    Transaction transaction= new Transaction();
-                    transaction.CreateAccount();
+                    AccountCreater accountcreater= new AccountCreater();
+                    accountcreater.CreateAccount();
                     break;
                 case "Settings":
                     //her skal den kalde en metode
