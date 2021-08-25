@@ -80,7 +80,7 @@ namespace KontiOpgave
             string LogIndPath, testnum;
             LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
             string bruger = "";
-            int fejl = 0, i = 0;
+            int fejl = 0, i = 0, tæller=0;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
             // this do while continues until password and username are approved
@@ -99,13 +99,14 @@ namespace KontiOpgave
                         AflæstBruger = bruger + "|";
                         fejl = 0;
                         i = 0;
+                        tæller++;
                     }
                     if (bruger == kode)
                     {
                         fejl = 1;
                     }
                 }
-                while (fejl != 0);
+                while (fejl != 0 && tæller < 3);
 
                 // We look through each line in the text file. If the username exists, we check if the next word matches the password
                 foreach (string line in lines)

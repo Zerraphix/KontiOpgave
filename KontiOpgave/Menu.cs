@@ -25,7 +25,7 @@ namespace KontiOpgave
             // Set the default index of the selected item to be the first
             int index = 0;
 
-            
+
             Console.SetCursorPosition(0, 7);
 
             // Store key info in here
@@ -74,19 +74,20 @@ namespace KontiOpgave
                 case "SeDineKonti":
                     Balance balence = new Balance();
                     balence.BalanceMethod(i);
-                    //her skal den kalde en metode
+                    
                     break;
                 case "LavEnOverførsel":
                     Transaction transaction = new Transaction();
                     transaction.MenuOversigtTransaction(i);
-                    //her skal den kalde en metode
+                    
                     break;
                 case "LavNyKonto":
-                    AccountCreater accountcreater= new AccountCreater();
+                    AccountCreater accountcreater = new AccountCreater();
                     accountcreater.CreateAccount(i);
                     break;
                 case "Settings":
-                    //her skal den kalde en metode
+                    Settings settings = new Settings();
+                    settings.PasswordChanger(i);
                     break;
                 default:
                     break;
