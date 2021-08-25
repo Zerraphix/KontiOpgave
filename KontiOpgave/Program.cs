@@ -7,15 +7,14 @@ namespace KontiOpgave
         static void Main(string[] args)
         {
 
-            string bruger, brugerlog, passlog;
+            string brugerlog, passlog;
 
 
             Console.WriteLine("Log ind.");
             Console.Write("Brugernavn: ");
-            bruger = Console.ReadLine();
+            brugerlog = Console.ReadLine();
             Console.Write("Password: ");
-            passlog = Console.ReadLine();
-            brugerlog = bruger + "|";
+            passlog = Console.ReadLine();            
             string test = LogInd.Logind(brugerlog, passlog);
             Console.WriteLine("Du er nu logget ind");
             Console.ReadKey();

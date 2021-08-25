@@ -15,7 +15,7 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
             // Creating a new list
             List<CustomerProperties> customerProperties = new List<CustomerProperties>();
 

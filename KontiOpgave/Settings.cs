@@ -14,15 +14,12 @@ namespace KontiOpgave
         {
             // the user can change their password here
             // declare variables and location of text file
-            string aflæstGamlePassword, nytPassword, bekræftetNytPassword, LogIndPath, gamlePassword = "";
+            string aflæstGamlePassword, nytPassword, bekræftetNytPassword, LogIndPath;
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
-            string gammeltPassword = "";
-            int si = Convert.ToInt32(s);
-            int i = si, tæller = 0;
+            LogIndPath = projectDirectory + @"\kontier\" + s + @"\Password.txt";
+            int tæller = 0;
             bool DoItWork = false;
-            i = i - 1;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
 
@@ -33,57 +30,38 @@ namespace KontiOpgave
                 aflæstGamlePassword = Console.ReadLine();
                 tæller++;
                 // we go through the file and get the user's old password
-                int k = 0;
-                foreach (string line in lines)
-                {
-                    k++;
-                    if (k == si)
-                    {
-                        gamlePassword = line.Split(" ")[1];
-                    }
-                }
+
 
                 // check if the old password from the file matches the password the user wrote
-                if (gamlePassword == aflæstGamlePassword)
+                if (lines[lines.Length - 1] == aflæstGamlePassword)
                 {
                     DoItWork = true;
                 }
             } while (DoItWork == false);
 
-            Console.WriteLine("Indtast dit nye password: ");
-            nytPassword = Console.ReadLine();
-            Console.WriteLine("Bekræft dit nye password: ");
-            bekræftetNytPassword = Console.ReadLine();
-
-            // check if the two input texts match
-
-            if (nytPassword == bekræftetNytPassword)
+            // the do while continues as long as the two new passwords do not match
+            do
             {
-                // replace the old password with the new
+                Console.WriteLine("Indtast dit nye password: ");
+                nytPassword = Console.ReadLine();
+                Console.WriteLine("Bekræft dit nye password: ");
+                bekræftetNytPassword = Console.ReadLine();
 
-                // we go through the file and get the user's old password
-                int k = 0;
-                foreach (string line in lines)
+                // check if the two input texts match
+                if (nytPassword == bekræftetNytPassword)
                 {
-                    k++;
-                    if (k == si)
-                    {
-                        string username = line.Split(" ")[0];
-                        string Whole = username + " " + nytPassword;
-
-                        //string replacedPassword=line.ToString.Replace(gammeltPassword,nytPassword);
-                        using StreamWriter file = new(LogIndPath, append: false);
-                        file.WriteLine(line.Replace(line, Whole));
-                    }
+                    // replace the old password with the new
+                    //string replacedPassword=line.ToString.Replace(gammeltPassword,nytPassword);
+                    using StreamWriter file = new(LogIndPath, append: true);
+                    file.WriteLine("\n" + nytPassword);
+                    Console.WriteLine("Du har nu skiftet dit password!");
                 }
-
-
-
-
-
-
-            }
-            Console.WriteLine("Du har nu skiftet dit password!");
+                // if the new password is not consequent, the user is asked to try again
+                else
+                {
+                    Console.WriteLine("De to passwords matchede ikke. Prøv igen!");
+                }
+            } while (nytPassword != bekræftetNytPassword);
 
         }
         public void AdminThingy()

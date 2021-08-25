@@ -83,7 +83,7 @@ namespace KontiOpgave
         // Default action of all the options
         static void StartMenu(string message, string i)
         {
-                    Transaction transaction = new Transaction();
+            Transaction transaction = new Transaction();
             Console.Clear();
             switch (message)
             {
@@ -91,7 +91,7 @@ namespace KontiOpgave
                     transaction.PutMoneyIntoAccount(i);
                     //her skal den kalde en metode
                     break;
-                case "OverførMellemEgne":                    
+                case "OverførMellemEgne":
                     transaction.TranferMoneyBetweenAccounts(i);
                     //her skal den kalde en metode
                     break;
@@ -145,7 +145,7 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string NemKontoPath;
-            NemKontoPath = projectDirectory + @"\kontier\" + i + @"\NemKonto.txt";
+            NemKontoPath = projectDirectory + @"\kontier\" + i + @"\Kontier\NemKonto.txt";
 
             // declare variables
             string indsættesString;
@@ -181,10 +181,14 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\" ;
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
+
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
+            // get the number of .txt. files in the folder
+            int numberOfAccounts = accounts.Length;
+
             int counter = 1;
             foreach (string account in accounts)
             {
@@ -198,10 +202,12 @@ namespace KontiOpgave
             int kontoNummer;
             do
             {
-                Console.Write("Hvilken konto vil du hæve fra? Indtast dens nummer:  ");
-                kontoNavn = Console.ReadLine();
-            } while (!int.TryParse(kontoNavn, out kontoNummer));
-            Console.WriteLine(accounts[kontoNummer - 1]);
+                do
+                {
+                    Console.Write("Hvilken konto vil du hæve fra? Indtast dens nummer:  ");
+                    kontoNavn = Console.ReadLine();
+                } while (!int.TryParse(kontoNavn, out kontoNummer));
+            } while (numberOfAccounts < kontoNummer);
 
             do
             {
@@ -232,10 +238,11 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
+            int numberOfAccounts = accounts.Length;
             int counter = 1;
             foreach (string account in accounts)
             {
@@ -252,10 +259,12 @@ namespace KontiOpgave
             int kontoNummer;
             do
             {
-                Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
-                kontoNavn = Console.ReadLine();
-            } while (!int.TryParse(kontoNavn, out kontoNummer));
-            Console.WriteLine(accounts[kontoNummer - 1]);
+                do
+                {
+                    Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
+                    kontoNavn = Console.ReadLine();
+                } while (!int.TryParse(kontoNavn, out kontoNummer));
+            } while (numberOfAccounts < kontoNummer);
 
             do
             {
@@ -286,10 +295,11 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
+            int numberOfAccounts = accounts.Length;
             int counter = 1;
             foreach (string account in accounts)
             {
@@ -301,21 +311,26 @@ namespace KontiOpgave
             int kontoNummerTil;
             do
             {
+                do
+                {
 
-                Console.WriteLine("Hvilken konto vil du overføre til? Indtast dens nummer: ");
-                modtagerKonto = Console.ReadLine();
-            } while (!int.TryParse(modtagerKonto, out kontoNummerTil));
+                    Console.WriteLine("Hvilken konto vil du overføre til? Indtast dens nummer: ");
+                    modtagerKonto = Console.ReadLine();
+                } while (!int.TryParse(modtagerKonto, out kontoNummerTil));
+            } while (numberOfAccounts < kontoNummerTil);
 
             // ask the user which account they want to take money from
             int kontoNummerFra;
             do
             {
-
                 do
                 {
-                    Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
-                    afsenderKonto = Console.ReadLine();
-                } while (!int.TryParse(afsenderKonto, out kontoNummerFra));
+                    do
+                    {
+                        Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
+                        afsenderKonto = Console.ReadLine();
+                    } while (!int.TryParse(afsenderKonto, out kontoNummerFra));
+                } while (numberOfAccounts < kontoNummerFra);
 
             } while (kontoNummerFra == kontoNummerTil);
             do

@@ -73,13 +73,12 @@ namespace KontiOpgave
             while (fejl != 0);
         }
         // Checks if the login is valid. 
-        public static string Logind(string AflæstBruger, string kode)
+        public static string Logind(string bruger, string kode)
         {
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string LogIndPath, testnum;
-            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
-            string bruger = "";
+            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";           
             int fejl = 0, i = 0, tæller=0;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
@@ -95,8 +94,7 @@ namespace KontiOpgave
                         Console.Write("Brugernavn: ");
                         bruger = Console.ReadLine();
                         Console.Write("Password: ");
-                        kode = Console.ReadLine();
-                        AflæstBruger = bruger + "|";
+                        kode = Console.ReadLine();                       
                         fejl = 0;
                         i = 0;
                         tæller++;
@@ -112,14 +110,17 @@ namespace KontiOpgave
                 foreach (string line in lines)
                 {
                     i++;
-                    if (line.Split(" ")[0] == AflæstBruger)
+                    if (line == bruger)
                     {
                         fejl = 0;
-                        if (line.Split(" ")[1]== kode)
+                        string PasswordPath = projectDirectory + @"\kontier\" + i + @"\Password.txt";
+                        string[] Pass = System.IO.File.ReadAllLines(PasswordPath);
+                        if (kode == Pass[Pass.Length - 1])
                         {
                             fejl = 0;
                             testnum = i.ToString();
                             return testnum;
+
                         }
                         else
                         {
