@@ -10,12 +10,12 @@ namespace KontiOpgave
     class AccountCreater
     {
 
-        public void CreateAccount()
+        public void CreateAccount(string i)
         {
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
             // Creating a new list
             List<CustomerProperties> customerProperties = new List<CustomerProperties>();
 

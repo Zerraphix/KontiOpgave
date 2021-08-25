@@ -16,13 +16,13 @@ namespace KontiOpgave
             Console.Write("Password: ");
             passlog = Console.ReadLine();
             brugerlog = bruger + "|";
-            LogInd.Logind(brugerlog, passlog);
+            string test = LogInd.Logind(brugerlog, passlog);
             Console.WriteLine("Du er nu logget ind");
             Console.ReadKey();
 
             // Sending over to menu
             Menu menu = new Menu();
-            menu.MenuOversigt();
+            menu.MenuOversigt(test);
 
         }
     }

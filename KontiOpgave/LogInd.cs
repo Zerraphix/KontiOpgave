@@ -73,14 +73,14 @@ namespace KontiOpgave
             while (fejl != 0);
         }
         // Checks if the login is valid. 
-        public static void Logind(string AflæstBruger, string kode)
+        public static string Logind(string AflæstBruger, string kode)
         {
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            string LogIndPath;
+            string LogIndPath, testnum;
             LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
             string bruger = "";
-            int fejl = 0;
+            int fejl = 0, i = 0;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
             // this do while continues until password and username are approved
@@ -93,11 +93,12 @@ namespace KontiOpgave
                     {
                         Console.WriteLine("Det ser udtil du har tastet noget forkert, prøv igen");
                         Console.Write("Brugernavn: ");
-                        AflæstBruger = Console.ReadLine();
+                        bruger = Console.ReadLine();
                         Console.Write("Password: ");
                         kode = Console.ReadLine();
-                        bruger = AflæstBruger + "|";
+                        AflæstBruger = bruger + "|";
                         fejl = 0;
+                        i = 0;
                     }
                     if (bruger == kode)
                     {
@@ -109,13 +110,15 @@ namespace KontiOpgave
                 // We look through each line in the text file. If the username exists, we check if the next word matches the password
                 foreach (string line in lines)
                 {
-                    if (line.Contains(bruger))
+                    i++;
+                    if (line.Split(" ")[0] == AflæstBruger)
                     {
                         fejl = 0;
-                        if (line.Contains(kode))
+                        if (line.Split(" ")[1]== kode)
                         {
                             fejl = 0;
-                            return;
+                            testnum = i.ToString();
+                            return testnum;
                         }
                         else
                         {
@@ -129,6 +132,8 @@ namespace KontiOpgave
                 }
             }
             while (fejl != 0);
+            testnum = i.ToString();
+            return testnum;
             
         }
     }

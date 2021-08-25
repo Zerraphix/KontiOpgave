@@ -25,16 +25,16 @@ namespace KontiOpgave
 
         // Makes a list combining methods.
         public static List<Option> options;
-        public void MenuOversigtTransaction()
+        public void MenuOversigtTransaction(string i)
         {
             //Put inputs into the list of options
             options = new List<Option>
             {
-                new Option("Sæt penge ind på din NemKonto", () => StartMenu("SætPengeInd")),
-                new Option("Overfør penge mellem dine egne konti", () =>  StartMenu("OverførMellemEgne")),
-                new Option("Overfør penge til en anden konto", () =>  StartMenu("OverførTilAndre")),
-                new Option("Hæve pænge fra egne konti", () => StartMenu("HævPenge")),
-                new Option("Tryk 'escape' for at vende tilbage til hovedmenuen", () => StartMenu("Afslut")),
+                new Option("Sæt penge ind på din NemKonto", () => StartMenu("SætPengeInd", i)),
+                new Option("Overfør penge mellem dine egne konti", () =>  StartMenu("OverførMellemEgne", i)),
+                new Option("Overfør penge til en anden konto", () =>  StartMenu("OverførTilAndre", i)),
+                new Option("Hæve pænge fra egne konti", () => StartMenu("HævPenge", i)),
+                new Option("Tryk 'escape' for at vende tilbage til hovedmenuen", () => StartMenu("Afslut", i)),
             };
 
             // Set the default index of the selected item to be the first
@@ -81,25 +81,25 @@ namespace KontiOpgave
             Console.ReadKey();
         }
         // Default action of all the options
-        static void StartMenu(string message)
+        static void StartMenu(string message, string i)
         {
                     Transaction transaction = new Transaction();
             Console.Clear();
             switch (message)
             {
                 case "SætPengeInd":
-                    transaction.PutMoneyIntoAccount();
+                    transaction.PutMoneyIntoAccount(i);
                     //her skal den kalde en metode
                     break;
                 case "OverførMellemEgne":                    
-                    transaction.TranferMoneyBetweenAccounts();
+                    transaction.TranferMoneyBetweenAccounts(i);
                     //her skal den kalde en metode
                     break;
                 case "OverførTilAndre":
-                    transaction.TranferMoneyAwayFromAccount();
+                    transaction.TranferMoneyAwayFromAccount(i);
                     break;
                 case "HævPenge":
-                    transaction.TakeMoneyOutOfTheAccount();
+                    transaction.TakeMoneyOutOfTheAccount(i);
                     //her skal den kalde en metode
                     break;
                 case "Afslut":
@@ -139,13 +139,13 @@ namespace KontiOpgave
             }
         }
 
-        public void PutMoneyIntoAccount()
+        public void PutMoneyIntoAccount(string i)
         {
             // get the filepath 
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string NemKontoPath;
-            NemKontoPath = projectDirectory + @"\kontier\NemKonto.txt";
+            NemKontoPath = projectDirectory + @"\kontier\" + i + @"\NemKonto.txt";
 
             // declare variables
             string indsættesString;
@@ -172,7 +172,7 @@ namespace KontiOpgave
             Console.ReadKey();
 
         }
-        public void TakeMoneyOutOfTheAccount()
+        public void TakeMoneyOutOfTheAccount(string i)
         {
             // declare variable
             string kontoNavn, indsættesString;
@@ -181,16 +181,16 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\" ;
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
-            int i = 1;
+            int counter = 1;
             foreach (string account in accounts)
             {
                 string[] Kontier = System.IO.File.ReadAllLines(account);
-                Console.WriteLine("\n" + i + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
-                i++;
+                Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
+                counter++;
 
             }
 
@@ -223,7 +223,7 @@ namespace KontiOpgave
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
         }
-        public void TranferMoneyAwayFromAccount()
+        public void TranferMoneyAwayFromAccount(string i)
         {
             // declare variable
             string kontoNavn, indsættesString, Reciever;
@@ -232,16 +232,16 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
-            int i = 1;
+            int counter = 1;
             foreach (string account in accounts)
             {
                 string[] Kontier = System.IO.File.ReadAllLines(account);
-                Console.WriteLine("\n" + i + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
-                i++;
+                Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
+                counter++;
 
             }
 
@@ -277,7 +277,7 @@ namespace KontiOpgave
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
         }
-        public void TranferMoneyBetweenAccounts()
+        public void TranferMoneyBetweenAccounts(string i)
         {
             // declare variable
             string afsenderKonto, indsættesString, modtagerKonto;
@@ -286,16 +286,16 @@ namespace KontiOpgave
             string workingDirectory = Environment.CurrentDirectory;
             string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\";
+            AccountPath = projectDirectory + @"\kontier\" + i + @"\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
-            int i = 1;
+            int counter = 1;
             foreach (string account in accounts)
             {
                 string[] Kontier = System.IO.File.ReadAllLines(account);
-                Console.WriteLine("\n" + i + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
-                i++;
+                Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
+                counter++;
 
             }
             int kontoNummerTil;

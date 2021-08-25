@@ -10,15 +10,15 @@ namespace KontiOpgave
     {
         // Makes a list combining methods.
         public static List<Option> options;
-        public void MenuOversigt()
+        public void MenuOversigt(string i)
         {
             //Put inputs into the list of options
             options = new List<Option>
             {
-                new Option("Se dine konti", () => StartMenu("SeDineKonti")),
-                new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel")),
-                new Option("Skift dit password", () =>  StartMenu("Settings")),
-                new Option("Opret en ny konto", () => StartMenu("LavNyKonto")),
+                new Option("Se dine konti", () => StartMenu("SeDineKonti", i)),
+                new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel", i)),
+                new Option("Skift dit password", () =>  StartMenu("Settings", i)),
+                new Option("Opret en ny konto", () => StartMenu("LavNyKonto", i)),
                 new Option("Log ud", () => Environment.Exit(0)),
             };
 
@@ -66,24 +66,24 @@ namespace KontiOpgave
             Console.ReadKey();
         }
         // Default action of all the options
-        static void StartMenu(string message)
+        static void StartMenu(string message, string i)
         {
             Console.Clear();
             switch (message)
             {
                 case "SeDineKonti":
                     Balance balence = new Balance();
-                    balence.BalanceMethod();
+                    balence.BalanceMethod(i);
                     //her skal den kalde en metode
                     break;
                 case "LavEnOverførsel":
                     Transaction transaction = new Transaction();
-                    transaction.MenuOversigtTransaction();
+                    transaction.MenuOversigtTransaction(i);
                     //her skal den kalde en metode
                     break;
                 case "LavNyKonto":
                     AccountCreater accountcreater= new AccountCreater();
-                    accountcreater.CreateAccount();
+                    accountcreater.CreateAccount(i);
                     break;
                 case "Settings":
                     //her skal den kalde en metode
