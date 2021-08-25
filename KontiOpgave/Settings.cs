@@ -15,9 +15,8 @@ namespace KontiOpgave
             // the user can change their password here
             // declare variables and location of text file
             string aflæstGamlePassword, nytPassword, bekræftetNytPassword, LogIndPath;
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            LogIndPath = projectDirectory + @"\kontier\" + s + @"\Password.txt";
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            LogIndPath = RoamingPath + @"\kontiuser\" + s + @"\Password.txt";
             int tæller = 0;
             bool DoItWork = false;
             // Reads the file where users and passwords are saved

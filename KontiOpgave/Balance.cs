@@ -12,10 +12,9 @@ namespace KontiOpgave
     {
         public void BalanceMethod(string i)
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\" ;
+            AccountPath = RoamingPath + @"\kontiuser\" + i + @"\konti\" ;
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
 

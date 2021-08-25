@@ -142,10 +142,9 @@ namespace KontiOpgave
         public void PutMoneyIntoAccount(string i)
         {
             // get the filepath 
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string NemKontoPath;
-            NemKontoPath = projectDirectory + @"\kontier\" + i + @"\Kontier\NemKonto.txt";
+            NemKontoPath = RoamingPath + @"\kontiuser\" + i + @"\konti\NemKonto.txt";
 
             // declare variables
             string indsættesString;
@@ -178,10 +177,9 @@ namespace KontiOpgave
             string kontoNavn, indsættesString;
             decimal indsættesDecimal;
             // get the filepath 
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
+            AccountPath = RoamingPath + @"\kontiuser\" + i + @"\konti\";
 
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
@@ -235,10 +233,9 @@ namespace KontiOpgave
             string kontoNavn, indsættesString, Reciever;
             decimal indsættesDecimal;
             // get the filepath 
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
+            AccountPath = RoamingPath + @"\kontiuser\" + i + @"\konti\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
@@ -292,10 +289,9 @@ namespace KontiOpgave
             string afsenderKonto, indsættesString, modtagerKonto;
             decimal indsættesDecimal;
             // get the filepath 
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
-            AccountPath = projectDirectory + @"\kontier\" + i + @"\Kontier\";
+            AccountPath = RoamingPath + @"\kontiuser\" + i + @"\konti\";
 
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);

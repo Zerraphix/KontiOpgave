@@ -8,7 +8,8 @@ namespace KontiOpgave
         {
 
             string brugerlog, passlog;
-
+            MakeOurData makeOurData= new MakeOurData();
+            makeOurData.DataCreator();
 
             Console.WriteLine("Log ind.");
             Console.Write("Brugernavn: ");

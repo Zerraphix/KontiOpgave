@@ -75,10 +75,9 @@ namespace KontiOpgave
         // Checks if the login is valid. 
         public static string Logind(string bruger, string kode)
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string LogIndPath, testnum;
-            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";           
+            LogIndPath = RoamingPath + @"\kontiuser\Logind.txt";           
             int fejl = 0, i = 0, tæller=0;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
@@ -113,7 +112,7 @@ namespace KontiOpgave
                     if (line == bruger)
                     {
                         fejl = 0;
-                        string PasswordPath = projectDirectory + @"\kontier\" + i + @"\Password.txt";
+                        string PasswordPath = RoamingPath + @"\kontiuser\" + i + @"\Password.txt";
                         string[] Pass = System.IO.File.ReadAllLines(PasswordPath);
                         if (kode == Pass[Pass.Length - 1])
                         {
