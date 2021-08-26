@@ -102,11 +102,14 @@ namespace KontiOpgave
         {
 
             Console.Clear();
-            Console.WriteLine("█████     ██    █    █  █  █");
-            Console.WriteLine("█    █   █  █   ██   █  █ █ ");
-            Console.WriteLine("█████   █    █  █ █  █  ██  ");
-            Console.WriteLine("█    █  ██████  █  █ █  █ █ ");
-            Console.WriteLine("█████  █      █ █   ██  █  █\n");
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("    v");
+            Console.ResetColor();
+            Console.WriteLine("    █████     ██    █    █  █  █");
+            Console.WriteLine("    █    █   █  █   ██   █  █ █ ");
+            Console.WriteLine("    █████   █    █  █ █  █  ██  ");
+            Console.WriteLine("    █    █  ██████  █  █ █  █ █ ");
+            Console.WriteLine("    █████  █      █ █   ██  █  █\n");
 
             // This is the "arrow" that symbolizes the selection
             foreach (Option option in options)
