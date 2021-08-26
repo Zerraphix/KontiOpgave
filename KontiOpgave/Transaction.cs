@@ -321,7 +321,7 @@ namespace KontiOpgave
             string nummer = Konti[Konti.Length - 1];
             decimal nummerDecimal = Convert.ToDecimal(nummer);
             decimal newAmount = nummerDecimal - indsættesDecimal;
-            Console.WriteLine($"Du sender {indsættesDecimal} kr. til {RecieverResult}. Der er nu " + newAmount + " kr. på din konto {Konti[0]}.");
+            Console.WriteLine($"Du sender {indsættesDecimal} kr. til {RecieverResult}. Der er nu " + newAmount + $" kr. på din konto {Konti[0]}.");
 
             // save the new amount on the persons account
             using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
@@ -359,6 +359,7 @@ namespace KontiOpgave
             if (numberOfAccounts == 1)
             {
                 Console.WriteLine("Du har kun én konto. Du bliver sendt tilbage til menuen nu.");
+                Console.ReadKey();
                 return;
             }
             int kontoNummerTil;
