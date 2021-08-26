@@ -69,7 +69,7 @@ namespace KontiOpgave
 
             Console.ReadKey();
         }
-        // The user's choice is sent to this method. The switch case decides which method should be called, and sends index i along.
+        // This method gets the user's choice as input. The switch case decides which method should be called, and sends index i along.
         static void StartMenu(string message, string i)
         {
             Transaction transaction = new Transaction();
@@ -328,6 +328,7 @@ namespace KontiOpgave
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
         }
+
         // this method allows the user to transfer money between their own accounts
         public void TranferMoneyBetweenAccounts(string i)
         {
@@ -352,6 +353,13 @@ namespace KontiOpgave
                 string[] Kontier = File.ReadAllLines(account);
                 Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
                 counter++;
+            }
+
+            // check if the user has more than 1 account
+            if (numberOfAccounts == 1)
+            {
+                Console.WriteLine("Du har kun én konto. Du bliver sendt tilbage til menuen nu.");
+                return;
             }
             int kontoNummerTil;
             do
