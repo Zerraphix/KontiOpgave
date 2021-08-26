@@ -16,6 +16,7 @@ namespace KontiOpgave
             //Put inputs into the list of options
             options = new List<Option>
             {
+                new Option("Din Profil", () => StartMenu("DinProfil", i)),
                 new Option("Se dine konti", () => StartMenu("SeDineKonti", i)),
                 new Option("Lav en overførsel", () =>  StartMenu("LavEnOverførsel", i)),
                 new Option("Skift dit password", () =>  StartMenu("Settings", i)),
@@ -74,6 +75,10 @@ namespace KontiOpgave
             Console.Clear();
             switch (message)
             {
+                case "DinProfil":
+                    Profile profile = new Profile();
+                    profile.ShowProfile(i);
+                    break;
                 case "SeDineKonti":
                     Balance balence = new Balance();
                     balence.BalanceMethod(i);
