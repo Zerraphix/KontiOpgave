@@ -8,6 +8,7 @@ namespace KontiOpgave
 {
     public class Menu
     {
+        // this method makes a menu so the user can navigate around in the bank system
         // Makes a list combining methods.
         public static List<Option> options;
         public void MenuOversigt(string i)
@@ -37,15 +38,17 @@ namespace KontiOpgave
                 keyinfo = Console.ReadKey();
 
                 // Handle each key input (down arrow will write the menu again with a different selected item)
-                // Only the up and down arrow keys is assigned to make the switch between options
+                // Only the up and down arrow keys are assigned to make the switch between options
                 if (keyinfo.Key == ConsoleKey.DownArrow)
                 {
+                    // if the down arrow is pressed, the index number rises by 1
                     if (index + 1 < options.Count)
                     {
                         index++;
                         WriteMenu(options, options[index]);
                     }
                 }
+                // if the up arrow is pressed, the index number falls by 1
                 if (keyinfo.Key == ConsoleKey.UpArrow)
                 {
                     if (index - 1 >= 0)
@@ -54,7 +57,7 @@ namespace KontiOpgave
                         WriteMenu(options, options[index]);
                     }
                 }
-                // Handle different action for the option
+                // If enter is pressed, the menu point is selected
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     options[index].Selected.Invoke();
@@ -65,7 +68,7 @@ namespace KontiOpgave
 
             Console.ReadKey();
         }
-        // Default action of all the options
+        // The chosen input from the menu/list is sent to this method, where the switch case determines which method to call. 
         static void StartMenu(string message, string i)
         {
             Console.Clear();
@@ -94,7 +97,7 @@ namespace KontiOpgave
 
             }
         }
-        // WriteMenu is the display of each different option which the user can choose between.
+        // The WriteMenu method displays each of the different options which the user can choose between, with the arrow on the index chosen by the user.
         static void WriteMenu(List<Option> options, Option selectedOption)
         {
 
