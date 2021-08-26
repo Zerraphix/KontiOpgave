@@ -147,18 +147,23 @@ namespace KontiOpgave
             // the dowhile only allows them to continue if it parses to decimal
             do
             {
-                Console.Write("Skriv det beløb du vil indsætte: ");
-                exit = Console.ReadKey();
-                // if they press Escape, they will be able to return to the menu
-                if (exit.Key == ConsoleKey.Escape)
+                do
                 {
-                    return;
-                }
-                indsættesString = Console.ReadLine();
-                char tal = Char.ToLower(exit.KeyChar);
-                indsættesResult = Convert.ToString(tal) + indsættesString;
-
-            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+                    Console.Write("Skriv det beløb du vil indsætte: ");
+                    exit = Console.ReadKey();
+                    // if they press Escape, they will be able to return to the menu
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                    indsættesString = Console.ReadLine();
+                    char tal = Char.ToLower(exit.KeyChar);
+                    indsættesResult = Convert.ToString(tal) + indsættesString;
+                } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+                //only allow the user to put positive numbers into their account
+                if (indsættesDecimal < 0)
+                { Console.WriteLine("Indsæt et positivt beløb..."); }
+            } while (indsættesDecimal < 0);
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(NemKontoPath);
@@ -220,18 +225,25 @@ namespace KontiOpgave
 
             do
             {
-                // ask the user how much they want to take out from the account
-                Console.WriteLine("Hvor meget vil du hæve?");
-                exit = Console.ReadKey();
-                if (exit.Key == ConsoleKey.Escape)
+                do
                 {
-                    return;
-                }
-                indsættesString = Console.ReadLine();
-                char tal = Char.ToLower(exit.KeyChar);
-                indsættesResult = Convert.ToString(tal) + indsættesString;
+                    // ask the user how much they want to take out from the account
+                    Console.WriteLine("Hvor meget vil du hæve?");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                    indsættesString = Console.ReadLine();
+                    char tal = Char.ToLower(exit.KeyChar);
+                    indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+                } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+
+                //only allow the user take put positive numbers from their account
+                if (indsættesDecimal < 0)
+                { Console.WriteLine("Du må kun hæve et positivt beløb..."); }
+            } while (indsættesDecimal < 0);
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(accounts[kontoNummer - 1]);
@@ -317,17 +329,24 @@ namespace KontiOpgave
             // ask the user - how much do you want to send?
             do
             {
-                Console.WriteLine("Hvor meget vil du overføre?");
-                exit = Console.ReadKey();
-                if (exit.Key == ConsoleKey.Escape)
+                do
                 {
-                    return;
-                }
-                indsættesString = Console.ReadLine();
-                tal = Char.ToLower(exit.KeyChar);
-                indsættesResult = Convert.ToString(tal) + indsættesString;
+                    Console.WriteLine("Hvor meget vil du overføre?");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                    indsættesString = Console.ReadLine();
+                    tal = Char.ToLower(exit.KeyChar);
+                    indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+                } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+
+                //only allow the user to transfer positive numbers
+                if (indsættesDecimal < 0)
+                { Console.WriteLine("Overfør et positivt beløb..."); }
+            } while (indsættesDecimal < 0);
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(accounts[kontoNummer - 1]);
@@ -426,17 +445,24 @@ namespace KontiOpgave
             } while (kontoNummerFra == kontoNummerTil);
             do
             {
-                // ask the user how much they want to transfer
-                Console.WriteLine("Hvor meget vil du overføre?");
-                exit = Console.ReadKey();
-                if (exit.Key == ConsoleKey.Escape)
+                do
                 {
-                    return;
-                }
-                indsættesString = Console.ReadLine();
-                char tal = Char.ToLower(exit.KeyChar);
-                indsættesResult = Convert.ToString(tal) + indsættesString;
-            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+                    // ask the user how much they want to transfer
+                    Console.WriteLine("Hvor meget vil du overføre?");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
+                    indsættesString = Console.ReadLine();
+                    char tal = Char.ToLower(exit.KeyChar);
+                    indsættesResult = Convert.ToString(tal) + indsættesString;
+                } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
+
+                //only allow the user to transfer positive numbers 
+                if (indsættesDecimal < 0)
+                { Console.WriteLine("Overfør et positivt beløb..."); }
+            } while (indsættesDecimal < 0);
 
             // Withdraw the money from the chosen account
             string[] fraKonti = System.IO.File.ReadAllLines(accounts[kontoNummerFra - 1]);
