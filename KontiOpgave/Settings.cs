@@ -9,7 +9,7 @@ namespace KontiOpgave
 {
     class Settings
     {
-
+        // this method allows the user to change their password
         public void PasswordChanger(string s)
         {
             // the user can change their password here
@@ -18,7 +18,7 @@ namespace KontiOpgave
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             LogIndPath = RoamingPath + @"\kontiuser\" + s + @"\Password.txt";
             int tæller = 0;
-            bool DoItWork = false;
+            bool doesItWork = false;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
 
@@ -34,9 +34,9 @@ namespace KontiOpgave
                 // check if the old password from the file matches the password the user wrote
                 if (lines[lines.Length - 1] == aflæstGamlePassword)
                 {
-                    DoItWork = true;
+                    doesItWork = true;
                 }
-            } while (DoItWork == false);
+            } while (doesItWork == false);
 
             // the do while continues as long as the two new passwords do not match
             do
@@ -56,7 +56,7 @@ namespace KontiOpgave
                     file.WriteLine("\n" + nytPassword);
                     Console.WriteLine("Du har nu skiftet dit password!");
                 }
-                // if the new password is not consequent, the user is asked to try again
+                // if the two instances of the new password do not match, the user is asked to try again
                 else
                 {
                     Console.WriteLine("De to passwords matchede ikke. Prøv igen!");
@@ -64,27 +64,28 @@ namespace KontiOpgave
             } while (checkedPassword != bekræftetNytPassword);
 
         }
-        public void AdminThingy()
-        {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            string LogIndPath;
-            LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
-            string password = "Password", bruger = "bruger", samletlog;
-            Console.Write("Indtast et brugernavn: ");
-            bruger = Console.ReadLine();
-            //LogInd.Bruger(bruger);
-            Console.Write("Indtast en kode der vil virke: ");
-            password = Console.ReadLine();
-            LogInd.Password(password);
-            Console.ReadKey();
+        // not currently in use
+        //public void AdminThingy()
+        //{
+        //    string workingDirectory = Environment.CurrentDirectory;
+        //    string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+        //    string LogIndPath;
+        //    LogIndPath = projectDirectory + @"\LogInd\Logind.txt";
+        //    string password = "Password", bruger = "bruger", samletlog;
+        //    Console.Write("Indtast et brugernavn: ");
+        //    bruger = Console.ReadLine();
+        //    LogInd.Bruger(bruger);
+        //    Console.Write("Indtast en kode der vil virke: ");
+        //    password = Console.ReadLine();
+        //    LogInd.Password(password);
+        //    Console.ReadKey();
 
-            samletlog = bruger + "| " + password;
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(LogIndPath, true))
-            {
-                file.WriteLine(samletlog);
-            }
+        //    samletlog = bruger + "| " + password;
+        //    using (System.IO.StreamWriter file = new System.IO.StreamWriter(LogIndPath, true))
+        //    {
+        //        file.WriteLine(samletlog);
+        //    }
 
-        }
+        //}
     }
 }

@@ -9,6 +9,7 @@ namespace KontiOpgave
 {
     public class LogInd
     {
+        // this is a class where the user logs in, to get access to the rest of the system
         // Checks if the new username is valid
         // Outcommented because it is not used in this update, but can be used later on if needed.
 
@@ -76,28 +77,29 @@ namespace KontiOpgave
             while (fejl != 0);
             return password;
         }
-        // Checks if the login is valid. 
+        // This method checks if the login is valid. 
         public static string Logind(string bruger, string kode)
         {
+            // declares variables
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string LogIndPath, testnum;
-            LogIndPath = RoamingPath + @"\kontiuser\Logind.txt";           
-            int fejl = 0, i = 0, tæller=0;
+            LogIndPath = RoamingPath + @"\kontiuser\Logind.txt";
+            int fejl = 0, i = 0, tæller = 0;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
-            // this do while continues until password and username are approved
+            // this dowhile continues until password and username are approved
             do
             {
                 do
-                {       
+                {
                     // As long as password and username are not approved, the console outputs an error message, and asks for new input
                     if (fejl == 1)
                     {
-                        Console.WriteLine("Det ser udtil du har tastet noget forkert, prøv igen");
+                        Console.WriteLine("Det ser ud til du har tastet noget forkert, prøv igen");
                         Console.Write("Brugernavn: ");
                         bruger = Console.ReadLine();
                         Console.Write("Password: ");
-                        kode = Console.ReadLine();                       
+                        kode = Console.ReadLine();
                         fejl = 0;
                         i = 0;
                         tæller++;
@@ -109,7 +111,7 @@ namespace KontiOpgave
                 }
                 while (fejl != 0 && tæller < 3);
 
-                // We look through each line in the text file. If the username exists, we check if the next word matches the password
+                // We look through each line in the Password.txt file, and check if the last word (most recent password) matches the input-password. 
                 foreach (string line in lines)
                 {
                     i++;
@@ -123,7 +125,6 @@ namespace KontiOpgave
                             fejl = 0;
                             testnum = i.ToString();
                             return testnum;
-
                         }
                         else
                         {
@@ -139,7 +140,6 @@ namespace KontiOpgave
             while (fejl != 0);
             testnum = i.ToString();
             return testnum;
-            
         }
     }
 }
