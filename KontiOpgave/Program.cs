@@ -13,7 +13,7 @@ namespace KontiOpgave
 
             Console.WriteLine("Log ind.");
             Console.Write("Brugernavn: ");
-            brugerlog = Console.ReadLine();
+            brugerlog = Console.ReadLine().ToLower();
             Console.Write("Password: ");
             passlog = Console.ReadLine();            
             string test = LogInd.Logind(brugerlog, passlog);
