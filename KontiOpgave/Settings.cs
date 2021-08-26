@@ -14,7 +14,7 @@ namespace KontiOpgave
         {
             // the user can change their password here
             // declare variables and location of text file
-            string aflæstGamlePassword, nytPassword, bekræftetNytPassword, LogIndPath;
+            string aflæstGamlePassword, nytPassword, bekræftetNytPassword, checkedPassword, LogIndPath;
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             LogIndPath = RoamingPath + @"\kontiuser\" + s + @"\Password.txt";
             int tæller = 0;
@@ -25,7 +25,7 @@ namespace KontiOpgave
             // this do while continues until password and username are approved
             do
             {
-                Console.WriteLine("Indtast dit gamle password: ");
+                Console.Write("Indtast dit gamle password: ");
                 aflæstGamlePassword = Console.ReadLine();
                 tæller++;
                 // we go through the file and get the user's old password
@@ -41,16 +41,17 @@ namespace KontiOpgave
             // the do while continues as long as the two new passwords do not match
             do
             {
-                Console.WriteLine("Indtast dit nye password: ");
+                Console.WriteLine("Dit nye password skal inholde mindst et stort bogstav, lille bogstav, tal og et specialt tegn");
+                Console.Write("Indtast dit nye password: ");
                 nytPassword = Console.ReadLine();
-                Console.WriteLine("Bekræft dit nye password: ");
+                checkedPassword = LogInd.Password(nytPassword);
+                Console.Write("Bekræft dit nye password: ");
                 bekræftetNytPassword = Console.ReadLine();
 
                 // check if the two input texts match
-                if (nytPassword == bekræftetNytPassword)
+                if (checkedPassword == bekræftetNytPassword)
                 {
                     // replace the old password with the new
-                    //string replacedPassword=line.ToString.Replace(gammeltPassword,nytPassword);
                     using StreamWriter file = new(LogIndPath, append: true);
                     file.WriteLine("\n" + nytPassword);
                     Console.WriteLine("Du har nu skiftet dit password!");
@@ -60,7 +61,7 @@ namespace KontiOpgave
                 {
                     Console.WriteLine("De to passwords matchede ikke. Prøv igen!");
                 }
-            } while (nytPassword != bekræftetNytPassword);
+            } while (checkedPassword != bekræftetNytPassword);
 
         }
         public void AdminThingy()
@@ -72,7 +73,7 @@ namespace KontiOpgave
             string password = "Password", bruger = "bruger", samletlog;
             Console.Write("Indtast et brugernavn: ");
             bruger = Console.ReadLine();
-            LogInd.Bruger(bruger);
+            //LogInd.Bruger(bruger);
             Console.Write("Indtast en kode der vil virke: ");
             password = Console.ReadLine();
             LogInd.Password(password);

@@ -10,29 +10,32 @@ namespace KontiOpgave
     public class LogInd
     {
         // Checks if the new username is valid
-        public static void Bruger(string bruger)
-        {
-            int fejl = 0;
-            do
-            {
-                if (fejl == 1)
-                {
-                    Console.Write("Du har skrevet et brugernavn som ikke er fuld lowercase, prøv igen: ");
-                    bruger = Console.ReadLine();
-                }
-                if (bruger.All(char.IsLower))
-                {
-                    fejl = 0;
-                }
-                else
-                {
-                    fejl = 1;
-                }
-            }
-            while (fejl != 0);
-        }
+        // Outcommented because it is not used in this update, but can be used later on if needed.
+
+        //public static void Bruger(string bruger)
+        //{
+        //    int fejl = 0;
+        //    do
+        //    {
+        //        if (fejl == 1)
+        //        {
+        //            Console.Write("Du har skrevet et brugernavn som ikke er fuld lowercase, prøv igen: ");
+        //            bruger = Console.ReadLine();
+        //        }
+        //        if (bruger.All(char.IsLower))
+        //        {
+        //            fejl = 0;
+        //        }
+        //        else
+        //        {
+        //            fejl = 1;
+        //        }
+        //    }
+        //    while (fejl != 0);
+        //}
+
         // checks if the new password is valid
-        public static void Password(string password)
+        public static string Password(string password)
         {
             int fejl = 0;
             do
@@ -71,6 +74,7 @@ namespace KontiOpgave
                 }
             }
             while (fejl != 0);
+            return password;
         }
         // Checks if the login is valid. 
         public static string Logind(string bruger, string kode)
