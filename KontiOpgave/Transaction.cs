@@ -9,22 +9,12 @@ namespace KontiOpgave
 {
     class Transaction
     {
-        // ask the user what they want to do
-
-        // put money into the main account
-
-
-        // transfer money to others - show which accounts they can chose from and how much money is on it - and prevent them from taking more money than is on the account
-        // tranfer to themselves - from which account to which?
-        // take money out of the account
-
-        // read the file - how much money is there? 
-        // subtract/add the amount the user input from the first file
-        // if it is a transfer to themselves - update the recieving file with the new amount
-        // ask the user if they want to return to the main menu or make another transaction
+        // This class is responisble for all the transactions the user wants to make - put money in, take money out, transfer money to others or between own accounts. 
 
         // Makes a list combining methods.
         public static List<Option> options;
+
+        // Prints a menu where the user can choose between options
         public void MenuOversigtTransaction(string i)
         {
             //Put inputs into the list of options
@@ -39,8 +29,6 @@ namespace KontiOpgave
 
             // Set the default index of the selected item to be the first
             int index = 0;
-
-
             Console.SetCursorPosition(0, 7);
 
             // Store key info in here
@@ -69,18 +57,19 @@ namespace KontiOpgave
                         WriteMenu(options, options[index]);
                     }
                 }
-                // Handle different action for the option
+                // If the key input is enter, the selected option is chosen
                 if (keyinfo.Key == ConsoleKey.Enter)
                 {
                     options[index].Selected.Invoke();
                     index = 0;
                 }
             }
+            // The user can press Escape to exit the menu
             while (keyinfo.Key != ConsoleKey.Escape);
 
             Console.ReadKey();
         }
-        // Default action of all the options
+        // The user's choice is sent to this method. The switch case decides which method should be called, and sends index i along.
         static void StartMenu(string message, string i)
         {
             Transaction transaction = new Transaction();
@@ -103,11 +92,9 @@ namespace KontiOpgave
                     //her skal den kalde en metode
                     break;
                 case "Afslut":
-
                     break;
                 default:
                     break;
-
             }
         }
         // WriteMenu is the display of each different option which the user can choose between.
@@ -115,6 +102,8 @@ namespace KontiOpgave
         {
 
             Console.Clear();
+            // foregroundcolour and WriteLine v is a solution to a problem we found. This screen would print nicely first time, but if the user pressed Escape to exit 
+            // a window, the first line of the text would be messed up. 
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("    v");
             Console.ResetColor();
@@ -141,7 +130,7 @@ namespace KontiOpgave
                 Console.WriteLine(option.Name);
             }
         }
-
+        // this method allows the user to put money into the default account
         public void PutMoneyIntoAccount(string i)
         {
             // get the filepath 
@@ -154,11 +143,13 @@ namespace KontiOpgave
             string indsættesResult, indsættesString;
             decimal indsættesDecimal;
 
-            // ask the user how much money they want to put into the main account, only allow them to continue if it parses to decimal
+            // ask the user how much money they want to put into the main account.
+            // the dowhile only allows them to continue if it parses to decimal
             do
             {
                 Console.Write("Skriv det beløb du vil indsætte: ");
                 exit = Console.ReadKey();
+                // if they press Escape, they will be able to return to the menu
                 if (exit.Key == ConsoleKey.Escape)
                 {
                     return;
@@ -176,12 +167,13 @@ namespace KontiOpgave
             decimal newAmount = nummerDecimal + indsættesDecimal;
             Console.WriteLine("Det nye beløb på din NemKonto er: " + newAmount + "kr.");
 
-            // save the new amount on the persons account
+            // save the new amount on the persons account. We use append so we can see their history
             using StreamWriter file = new(NemKontoPath, append: true);
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
 
         }
+        // this method allows the user to extract money from their account
         public void TakeMoneyOutOfTheAccount(string i)
         {
             // declare variable
@@ -193,7 +185,6 @@ namespace KontiOpgave
             string AccountPath;
             AccountPath = RoamingPath + @"\kontiuser\" + i + @"\konti\";
 
-
             // Takes all the files from the folder/path "kontier" and puts them into a string array
             string[] accounts = Directory.GetFiles(AccountPath);
             // get the number of .txt. files in the folder
@@ -202,32 +193,34 @@ namespace KontiOpgave
             int counter = 1;
             foreach (string account in accounts)
             {
-                string[] Kontier = System.IO.File.ReadAllLines(account);
+                // prints the accounts and amount of money in them
+                string[] Kontier = File.ReadAllLines(account);
                 Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
                 counter++;
-
             }
 
-            // ask the user which account they want to take money from
             int kontoNummer;
             do
             {
                 do
                 {
+                    // ask the user which account they want to take money from
                     Console.Write("Hvilken konto vil du hæve fra? Indtast dens nummer:  ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
                     {
                         return;
-                    }                   
+                    }
                     kontoNavn = Console.ReadLine();
                     char tal = Char.ToLower(exit.KeyChar);
                     kontoNavnResult = Convert.ToString(tal) + kontoNavn;
                 } while (!int.TryParse(kontoNavnResult, out kontoNummer));
+                // check if the chosen number exists in the folder, prevents the user from trying to take money from a nonexisting account
             } while (numberOfAccounts < kontoNummer);
 
             do
             {
+                // ask the user how much they want to take out from the account
                 Console.WriteLine("Hvor meget vil du hæve?");
                 exit = Console.ReadKey();
                 if (exit.Key == ConsoleKey.Escape)
@@ -252,12 +245,15 @@ namespace KontiOpgave
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
         }
+
+        // this method allows the user to transfer money to another person. It accepts any input...
         public void TranferMoneyAwayFromAccount(string i)
         {
             // declare variable
             string kontoNavn, indsættesString, RecieverResult, Reciever, kontoNavnResult, indsættesResult;
             decimal indsættesDecimal;
             ConsoleKeyInfo exit;
+
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
@@ -267,6 +263,7 @@ namespace KontiOpgave
             string[] accounts = Directory.GetFiles(AccountPath);
             int numberOfAccounts = accounts.Length;
             int counter = 1;
+            // prints the current amount in the accounts
             foreach (string account in accounts)
             {
                 string[] Kontier = System.IO.File.ReadAllLines(account);
@@ -274,13 +271,13 @@ namespace KontiOpgave
                 counter++;
 
             }
-
+            // ask the user who they want to transfer to
             Console.WriteLine("Hvem vil du gerne sende penge til? ");
             exit = Console.ReadKey();
             if (exit.Key == ConsoleKey.Escape)
             {
                 return;
-            }           
+            }
             Reciever = Console.ReadLine();
             char tal = Char.ToLower(exit.KeyChar);
             RecieverResult = Convert.ToString(tal) + Reciever;
@@ -301,11 +298,13 @@ namespace KontiOpgave
                     tal = Char.ToLower(exit.KeyChar);
                     kontoNavnResult = Convert.ToString(tal) + kontoNavn;
                 } while (!int.TryParse(kontoNavnResult, out kontoNummer));
+                // check if the chosen number exists in the folder, prevents the user from trying to take money from a nonexisting account
             } while (numberOfAccounts < kontoNummer);
 
+            // ask the user - how much do you want to send?
             do
             {
-                Console.WriteLine("Hvor meget vil du hæve?");
+                Console.WriteLine("Hvor meget vil du overføre?");
                 exit = Console.ReadKey();
                 if (exit.Key == ConsoleKey.Escape)
                 {
@@ -322,19 +321,21 @@ namespace KontiOpgave
             string nummer = Konti[Konti.Length - 1];
             decimal nummerDecimal = Convert.ToDecimal(nummer);
             decimal newAmount = nummerDecimal - indsættesDecimal;
-            Console.WriteLine($"Du sender {indsættesDecimal}kr til {RecieverResult} og dit nye beløb på din {Konti[0]} er: " + newAmount + "kr.");
+            Console.WriteLine($"Du sender {indsættesDecimal} kr. til {RecieverResult}. Der er nu " + newAmount + " kr. på din konto {Konti[0]}.");
 
             // save the new amount on the persons account
             using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
             file.WriteAsync("\n" + newAmount.ToString());
             Console.ReadKey();
         }
+        // this method allows the user to transfer money between their own accounts
         public void TranferMoneyBetweenAccounts(string i)
         {
             // declare variable
             string afsenderKonto, indsættesString, modtagerKonto, modtagerKontoResult, afsenderKontoResult, indsættesResult;
             decimal indsættesDecimal;
             ConsoleKeyInfo exit;
+
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
@@ -344,19 +345,20 @@ namespace KontiOpgave
             string[] accounts = Directory.GetFiles(AccountPath);
             int numberOfAccounts = accounts.Length;
             int counter = 1;
+
+            // print the current amount on the accounts
             foreach (string account in accounts)
             {
-                string[] Kontier = System.IO.File.ReadAllLines(account);
+                string[] Kontier = File.ReadAllLines(account);
                 Console.WriteLine("\n" + counter + $". {Kontier[0]}" + ": " + $"{Kontier[Kontier.Length - 1]}" + "kr.");
                 counter++;
-
             }
             int kontoNummerTil;
             do
             {
                 do
                 {
-
+                    // ask the user to write which account they want to tranfer to
                     Console.WriteLine("Hvilken konto vil du overføre til? Indtast dens nummer: ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
@@ -388,10 +390,11 @@ namespace KontiOpgave
                         afsenderKontoResult = Convert.ToString(tal) + afsenderKonto;
                     } while (!int.TryParse(afsenderKontoResult, out kontoNummerFra));
                 } while (numberOfAccounts < kontoNummerFra);
-
+                // prevent the user from transfering money between the same account
             } while (kontoNummerFra == kontoNummerTil);
             do
             {
+                // ask the user how much they want to transfer
                 Console.WriteLine("Hvor meget vil du overføre?");
                 exit = Console.ReadKey();
                 if (exit.Key == ConsoleKey.Escape)
@@ -401,29 +404,27 @@ namespace KontiOpgave
                 indsættesString = Console.ReadLine();
                 char tal = Char.ToLower(exit.KeyChar);
                 indsættesResult = Convert.ToString(tal) + indsættesString;
-
             } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
 
-            // read the amount on the main account and print the new amount on the account 
-            // Withdraws the money
+            // Withdraw the money from the chosen account
             string[] fraKonti = System.IO.File.ReadAllLines(accounts[kontoNummerFra - 1]);
             string fraBeløb = fraKonti[fraKonti.Length - 1];
             decimal franummerDecimal = Convert.ToDecimal(fraBeløb);
             decimal franewAmount = franummerDecimal - indsættesDecimal;
 
-            // Adds the money
+            // Add the money to the chosen account
             string[] tilKonti = System.IO.File.ReadAllLines(accounts[kontoNummerTil - 1]);
             string tilBeløb = tilKonti[tilKonti.Length - 1];
             decimal tilnummerDecimal = Convert.ToDecimal(tilBeløb);
             decimal tilnewAmount = tilnummerDecimal + indsættesDecimal;
 
+            Console.WriteLine($"Du har sat {indsættesDecimal}kr. ind på {tilKonti[0]}. Der står nu {tilnewAmount}kr. på din konto. \nDet nye beløb på din {fraKonti[0]} er: " + franewAmount + "kr.");
 
-            Console.WriteLine($"Du har sat {indsættesDecimal}kr ind på {tilKonti[0]}. Der står nu {tilnewAmount}kr. på din konto. \nDet nye beløb på din {fraKonti[0]} er: " + franewAmount + "kr.");
-
-            // save the new amount on the persons account
+            // save the new amount on the user's account
             using StreamWriter file = new(accounts[kontoNummerFra - 1], append: true);
             file.WriteAsync("\n" + franewAmount.ToString());
 
+            // save the new amount on the user's account
             using StreamWriter file2 = new(accounts[kontoNummerTil - 1], append: true);
             file2.WriteAsync("\n" + tilnewAmount.ToString());
             Console.ReadKey();
