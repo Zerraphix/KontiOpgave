@@ -238,15 +238,28 @@ namespace KontiOpgave
             string nummer = Konti[Konti.Length - 1];
             decimal nummerDecimal = Convert.ToDecimal(nummer);
             decimal newAmount = nummerDecimal - indsættesDecimal;
-            Console.WriteLine($"Du hæver {indsættesDecimal}kr og dit nye beløb på din {Konti[0]} er: " + newAmount + "kr.");
 
-            // save the new amount on the persons account
-            using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
-            file.WriteAsync("\n" + newAmount.ToString());
-            Console.ReadKey();
+            // only allows the user to overdraft 1000 kr. 
+            if (newAmount > -1000)
+            {
+                Console.WriteLine($"Du hæver {indsættesDecimal}kr og dit nye beløb på din {Konti[0]} er: " + newAmount + "kr.");
+
+                // save the new amount on the persons account
+                using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
+                file.WriteAsync("\n" + newAmount.ToString());
+                Console.ReadKey();
+            }
+            // if the user tries to take out an amount that will leave them with more than -1000 kr, they are stopped
+            else
+            {
+                Console.WriteLine("Du må højst have overtræk på 1000 kr.");
+                Console.ReadKey();
+            }
+
+
         }
 
-        // this method allows the user to transfer money to another person. It accepts any input...
+        // this method allows the user to transfer money to another person
         public void TranferMoneyAwayFromAccount(string i)
         {
             // declare variable
@@ -321,12 +334,22 @@ namespace KontiOpgave
             string nummer = Konti[Konti.Length - 1];
             decimal nummerDecimal = Convert.ToDecimal(nummer);
             decimal newAmount = nummerDecimal - indsættesDecimal;
-            Console.WriteLine($"Du sender {indsættesDecimal} kr. til {RecieverResult}. Der er nu " + newAmount + $" kr. på din konto {Konti[0]}.");
+            // only allows the user to overdraft 1000 kr. 
+            if (newAmount > -1000)
+            {
+                Console.WriteLine($"Du sender {indsættesDecimal} kr. til {RecieverResult}. Der er nu " + newAmount + $" kr. på din konto {Konti[0]}.");
+                // save the new amount on the persons account
+                using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
+                file.WriteAsync("\n" + newAmount.ToString());
+                Console.ReadKey();
+            }
 
-            // save the new amount on the persons account
-            using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
-            file.WriteAsync("\n" + newAmount.ToString());
-            Console.ReadKey();
+            // if the user tries to take out an amount that will leave them with more than -1000 kr, they are stopped
+            else
+            {
+                Console.WriteLine("Du må højst have overtræk på 1000 kr.");
+                Console.ReadKey();
+            }
         }
 
         // this method allows the user to transfer money between their own accounts
@@ -421,22 +444,39 @@ namespace KontiOpgave
             decimal franummerDecimal = Convert.ToDecimal(fraBeløb);
             decimal franewAmount = franummerDecimal - indsættesDecimal;
 
-            // Add the money to the chosen account
-            string[] tilKonti = System.IO.File.ReadAllLines(accounts[kontoNummerTil - 1]);
-            string tilBeløb = tilKonti[tilKonti.Length - 1];
-            decimal tilnummerDecimal = Convert.ToDecimal(tilBeløb);
-            decimal tilnewAmount = tilnummerDecimal + indsættesDecimal;
+            // only allows the user to overdraft 1000 kr. 
+            if (franewAmount > -1000)
+            {
+                // Add the money to the chosen account
+                string[] tilKonti = System.IO.File.ReadAllLines(accounts[kontoNummerTil - 1]);
+                string tilBeløb = tilKonti[tilKonti.Length - 1];
+                decimal tilnummerDecimal = Convert.ToDecimal(tilBeløb);
+                decimal tilnewAmount = tilnummerDecimal + indsættesDecimal;
 
-            Console.WriteLine($"Du har sat {indsættesDecimal}kr. ind på {tilKonti[0]}. Der står nu {tilnewAmount}kr. på din konto. \nDet nye beløb på din {fraKonti[0]} er: " + franewAmount + "kr.");
+                Console.WriteLine($"Du har sat {indsættesDecimal}kr. ind på {tilKonti[0]}. Der står nu {tilnewAmount}kr. på din konto. \nDet nye beløb på din {fraKonti[0]} er: " + franewAmount + "kr.");
 
-            // save the new amount on the user's account
-            using StreamWriter file = new(accounts[kontoNummerFra - 1], append: true);
-            file.WriteAsync("\n" + franewAmount.ToString());
+                // save the new amount on the user's account
+                using StreamWriter file = new(accounts[kontoNummerFra - 1], append: true);
+                file.WriteAsync("\n" + franewAmount.ToString());
 
-            // save the new amount on the user's account
-            using StreamWriter file2 = new(accounts[kontoNummerTil - 1], append: true);
-            file2.WriteAsync("\n" + tilnewAmount.ToString());
-            Console.ReadKey();
+                // save the new amount on the user's account
+                using StreamWriter file2 = new(accounts[kontoNummerTil - 1], append: true);
+                file2.WriteAsync("\n" + tilnewAmount.ToString());
+                Console.ReadKey();
+            }
+            // if the user tries to take out an amount that will leave them with more than -1000 kr, they are stopped
+            else
+            {
+                Console.WriteLine("Du må højst have overtræk på 1000 kr.");
+                Console.ReadKey();
+            }
+
+
+
+
+
+
+
         }
     }
 }
