@@ -115,6 +115,9 @@ namespace KontiOpgave
         {
 
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("    v");
+            Console.ResetColor();
             Console.WriteLine("    █████     ██    █    █  █  █");
             Console.WriteLine("    █    █   █  █   ██   █  █ █ ");
             Console.WriteLine("    █████   █    █  █ █  █  ██  ");
@@ -144,19 +147,27 @@ namespace KontiOpgave
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string NemKontoPath;
+            ConsoleKeyInfo exit;
             NemKontoPath = RoamingPath + @"\kontiuser\" + i + @"\konti\NemKonto.txt";
 
             // declare variables
-            string indsættesString;
+            string indsættesResult, indsættesString;
             decimal indsættesDecimal;
 
             // ask the user how much money they want to put into the main account, only allow them to continue if it parses to decimal
             do
             {
                 Console.Write("Skriv det beløb du vil indsætte: ");
+                exit = Console.ReadKey();
+                if (exit.Key == ConsoleKey.Escape)
+                {
+                    return;
+                }
                 indsættesString = Console.ReadLine();
+                char tal = Char.ToLower(exit.KeyChar);
+                indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesString, out indsættesDecimal));
+            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(NemKontoPath);
@@ -174,8 +185,9 @@ namespace KontiOpgave
         public void TakeMoneyOutOfTheAccount(string i)
         {
             // declare variable
-            string kontoNavn, indsættesString;
+            string kontoNavnResult, indsættesResult, kontoNavn, indsættesString;
             decimal indsættesDecimal;
+            ConsoleKeyInfo exit;
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
@@ -203,17 +215,30 @@ namespace KontiOpgave
                 do
                 {
                     Console.Write("Hvilken konto vil du hæve fra? Indtast dens nummer:  ");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }                   
                     kontoNavn = Console.ReadLine();
-                } while (!int.TryParse(kontoNavn, out kontoNummer));
+                    char tal = Char.ToLower(exit.KeyChar);
+                    kontoNavnResult = Convert.ToString(tal) + kontoNavn;
+                } while (!int.TryParse(kontoNavnResult, out kontoNummer));
             } while (numberOfAccounts < kontoNummer);
 
             do
             {
                 Console.WriteLine("Hvor meget vil du hæve?");
-
+                exit = Console.ReadKey();
+                if (exit.Key == ConsoleKey.Escape)
+                {
+                    return;
+                }
                 indsættesString = Console.ReadLine();
+                char tal = Char.ToLower(exit.KeyChar);
+                indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesString, out indsættesDecimal));
+            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(accounts[kontoNummer - 1]);
@@ -230,8 +255,9 @@ namespace KontiOpgave
         public void TranferMoneyAwayFromAccount(string i)
         {
             // declare variable
-            string kontoNavn, indsættesString, Reciever;
+            string kontoNavn, indsættesString, RecieverResult, Reciever, kontoNavnResult, indsættesResult;
             decimal indsættesDecimal;
+            ConsoleKeyInfo exit;
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
@@ -250,7 +276,14 @@ namespace KontiOpgave
             }
 
             Console.WriteLine("Hvem vil du gerne sende penge til? ");
+            exit = Console.ReadKey();
+            if (exit.Key == ConsoleKey.Escape)
+            {
+                return;
+            }           
             Reciever = Console.ReadLine();
+            char tal = Char.ToLower(exit.KeyChar);
+            RecieverResult = Convert.ToString(tal) + Reciever;
 
             // ask the user which account they want to take money from
             int kontoNummer;
@@ -259,24 +292,37 @@ namespace KontiOpgave
                 do
                 {
                     Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
                     kontoNavn = Console.ReadLine();
-                } while (!int.TryParse(kontoNavn, out kontoNummer));
+                    tal = Char.ToLower(exit.KeyChar);
+                    kontoNavnResult = Convert.ToString(tal) + kontoNavn;
+                } while (!int.TryParse(kontoNavnResult, out kontoNummer));
             } while (numberOfAccounts < kontoNummer);
 
             do
             {
                 Console.WriteLine("Hvor meget vil du hæve?");
-
+                exit = Console.ReadKey();
+                if (exit.Key == ConsoleKey.Escape)
+                {
+                    return;
+                }
                 indsættesString = Console.ReadLine();
+                tal = Char.ToLower(exit.KeyChar);
+                indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesString, out indsættesDecimal));
+            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
 
             // read the amount on the main account and print the new amount on the account 
             string[] Konti = System.IO.File.ReadAllLines(accounts[kontoNummer - 1]);
             string nummer = Konti[Konti.Length - 1];
             decimal nummerDecimal = Convert.ToDecimal(nummer);
             decimal newAmount = nummerDecimal - indsættesDecimal;
-            Console.WriteLine($"Du sender {indsættesDecimal}kr til {Reciever} og dit nye beløb på din {Konti[0]} er: " + newAmount + "kr.");
+            Console.WriteLine($"Du sender {indsættesDecimal}kr til {RecieverResult} og dit nye beløb på din {Konti[0]} er: " + newAmount + "kr.");
 
             // save the new amount on the persons account
             using StreamWriter file = new(accounts[kontoNummer - 1], append: true);
@@ -286,8 +332,9 @@ namespace KontiOpgave
         public void TranferMoneyBetweenAccounts(string i)
         {
             // declare variable
-            string afsenderKonto, indsættesString, modtagerKonto;
+            string afsenderKonto, indsættesString, modtagerKonto, modtagerKontoResult, afsenderKontoResult, indsættesResult;
             decimal indsættesDecimal;
+            ConsoleKeyInfo exit;
             // get the filepath 
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string AccountPath;
@@ -311,8 +358,15 @@ namespace KontiOpgave
                 {
 
                     Console.WriteLine("Hvilken konto vil du overføre til? Indtast dens nummer: ");
+                    exit = Console.ReadKey();
+                    if (exit.Key == ConsoleKey.Escape)
+                    {
+                        return;
+                    }
                     modtagerKonto = Console.ReadLine();
-                } while (!int.TryParse(modtagerKonto, out kontoNummerTil));
+                    char tal = Char.ToLower(exit.KeyChar);
+                    modtagerKontoResult = Convert.ToString(tal) + modtagerKonto;
+                } while (!int.TryParse(modtagerKontoResult, out kontoNummerTil));
             } while (numberOfAccounts < kontoNummerTil);
 
             // ask the user which account they want to take money from
@@ -324,18 +378,31 @@ namespace KontiOpgave
                     do
                     {
                         Console.Write("Hvilken konto vil du gerne sende fra? Indtast dens nummer:  ");
+                        exit = Console.ReadKey();
+                        if (exit.Key == ConsoleKey.Escape)
+                        {
+                            return;
+                        }
                         afsenderKonto = Console.ReadLine();
-                    } while (!int.TryParse(afsenderKonto, out kontoNummerFra));
+                        char tal = Char.ToLower(exit.KeyChar);
+                        afsenderKontoResult = Convert.ToString(tal) + afsenderKonto;
+                    } while (!int.TryParse(afsenderKontoResult, out kontoNummerFra));
                 } while (numberOfAccounts < kontoNummerFra);
 
             } while (kontoNummerFra == kontoNummerTil);
             do
             {
                 Console.WriteLine("Hvor meget vil du overføre?");
-
+                exit = Console.ReadKey();
+                if (exit.Key == ConsoleKey.Escape)
+                {
+                    return;
+                }
                 indsættesString = Console.ReadLine();
+                char tal = Char.ToLower(exit.KeyChar);
+                indsættesResult = Convert.ToString(tal) + indsættesString;
 
-            } while (!decimal.TryParse(indsættesString, out indsættesDecimal));
+            } while (!decimal.TryParse(indsættesResult, out indsættesDecimal));
 
             // read the amount on the main account and print the new amount on the account 
             // Withdraws the money
