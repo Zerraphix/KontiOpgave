@@ -41,7 +41,7 @@ namespace KontiOpgave
             // the do while continues as long as the two new passwords do not match
             do
             {
-                Console.WriteLine("Dit nye password skal inholde mindst et stort bogstav, lille bogstav, tal og et specialt tegn");
+                Console.WriteLine("Dit nye password skal være på mindst 6 tegn, og indeholde mindst et stort bogstav, et lille bogstav, et tal og et specialt tegn");
                 Console.Write("Indtast dit nye password: ");
                 nytPassword = Console.ReadLine();
                 checkedPassword = LogInd.Password(nytPassword);
