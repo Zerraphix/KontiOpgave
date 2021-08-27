@@ -13,14 +13,8 @@ namespace KontiOpgave
         {
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string userPath = RoamingPath + @"\kontiuser";
-
-            // checks if the file exists. 
-            if (Directory.Exists(userPath))
-            {
-
-            }
             // if the file does not exist, it is created with hardcodet data
-            else if (!File.Exists(userPath))
+            if (!Directory.Exists(userPath))
             {
                 DataCreator();
             }
@@ -31,7 +25,12 @@ namespace KontiOpgave
             // declare variables for folder
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string userPath = RoamingPath + @"\kontiuser";
+            // checks if the file exists. 
+            if (Directory.Exists(userPath))
+            {
             Directory.Delete(userPath, true);
+            }
+
 
             Directory.CreateDirectory(userPath);
             using StreamWriter Userfile = new(userPath + @"\Logind.txt", append: false);
