@@ -15,7 +15,7 @@ namespace KontiOpgave
             string userPath = RoamingPath + @"\kontiuser";
 
             // checks if the file exists. 
-            if (File.Exists(userPath + @"\Logind.txt"))
+            if (Directory.Exists(userPath))
             {
 
             }
