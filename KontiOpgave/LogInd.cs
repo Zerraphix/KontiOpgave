@@ -84,7 +84,7 @@ namespace KontiOpgave
             string RoamingPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string LogIndPath, testnum;
             LogIndPath = RoamingPath + @"\kontiuser\Logind.txt";
-            int fejl = 0, i = 0, tæller = 0;
+            int fejl = 0, i = 0, tæller = 1;
             // Reads the file where users and passwords are saved
             string[] lines = System.IO.File.ReadAllLines(LogIndPath);
             // this dowhile continues until password and username are approved
@@ -108,8 +108,13 @@ namespace KontiOpgave
                     {
                         fejl = 1;
                     }
+                    if (tæller == 3)
+                    {
+                        Console.WriteLine("Du har tastet forkert 3 gange. Applicationen lukkes. ");
+                        Environment.Exit(0);
+                    }
                 }
-                while (fejl != 0 && tæller < 3);
+                while (fejl != 0);
 
                 // We look through each line in the Password.txt file, and check if the last word (most recent password) matches the input-password. 
                 foreach (string line in lines)
