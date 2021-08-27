@@ -26,6 +26,10 @@ namespace KontiOpgave
                 if (bruger.All(char.IsLower))
                 {
                     fejl = 0;
+                    if (bruger.Length < 2)
+                    {
+                        fejl = 1;
+                    }
                 }
                 else
                 {
@@ -101,17 +105,18 @@ namespace KontiOpgave
                         bruger = Console.ReadLine();
                         Console.Write("Password: ");
                         kode = Console.ReadLine();
-                        fejl = 0;
                         i = 0;
                         tæller++;
+                        fejl = 0;
                     }
                     if (bruger == kode)
                     {
                         fejl = 1;
                     }
-                    if (tæller == 3)
+                    if (tæller == 3 && fejl==1)
                     {
                         Console.WriteLine("Du har tastet forkert 3 gange. Applicationen lukkes. ");
+                        fejl = 0;
                         Environment.Exit(0);
                     }
                 }
