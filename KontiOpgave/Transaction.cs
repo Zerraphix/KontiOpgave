@@ -228,7 +228,7 @@ namespace KontiOpgave
                 do
                 {
                     // ask the user how much they want to take out from the account
-                    Console.WriteLine("Hvor meget vil du hæve?");
+                    Console.Write("Hvor meget vil du hæve? ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
                     {
@@ -297,7 +297,7 @@ namespace KontiOpgave
 
             }
             // ask the user who they want to transfer to
-            Console.WriteLine("Hvem vil du gerne sende penge til? ");
+            Console.Write("Hvem vil du gerne sende penge til? ");
             exit = Console.ReadKey();
             if (exit.Key == ConsoleKey.Escape)
             {
@@ -331,7 +331,7 @@ namespace KontiOpgave
             {
                 do
                 {
-                    Console.WriteLine("Hvor meget vil du overføre?");
+                    Console.Write("Hvor meget vil du overføre? ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
                     {
@@ -410,7 +410,7 @@ namespace KontiOpgave
                 do
                 {
                     // ask the user to write which account they want to tranfer to
-                    Console.WriteLine("Hvilken konto vil du overføre til? Indtast dens nummer: ");
+                    Console.Write("Hvilken konto vil du overføre til? Indtast dens nummer: ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
                     {
@@ -448,7 +448,7 @@ namespace KontiOpgave
                 do
                 {
                     // ask the user how much they want to transfer
-                    Console.WriteLine("Hvor meget vil du overføre?");
+                    Console.Write("Hvor meget vil du overføre? ");
                     exit = Console.ReadKey();
                     if (exit.Key == ConsoleKey.Escape)
                     {
@@ -496,13 +496,6 @@ namespace KontiOpgave
                 Console.WriteLine("Du må højst have overtræk på 1000 kr.");
                 Console.ReadKey();
             }
-
-
-
-
-
-
-
         }
     }
 }

@@ -13,27 +13,28 @@ namespace KontiOpgave
         // Checks if the new username is valid
         // Outcommented because it is not used in this update, but can be used later on if needed.
 
-        //public static void Bruger(string bruger)
-        //{
-        //    int fejl = 0;
-        //    do
-        //    {
-        //        if (fejl == 1)
-        //        {
-        //            Console.Write("Du har skrevet et brugernavn som ikke er fuld lowercase, prøv igen: ");
-        //            bruger = Console.ReadLine();
-        //        }
-        //        if (bruger.All(char.IsLower))
-        //        {
-        //            fejl = 0;
-        //        }
-        //        else
-        //        {
-        //            fejl = 1;
-        //        }
-        //    }
-        //    while (fejl != 0);
-        //}
+        public static string Bruger(string bruger)
+        {
+            int fejl = 0;
+            do
+            {
+                if (fejl == 1)
+                {
+                    Console.Write("Du har skrevet et brugernavn som ikke er fuld lowercase, prøv igen: ");
+                    bruger = Console.ReadLine();
+                }
+                if (bruger.All(char.IsLower))
+                {
+                    fejl = 0;
+                }
+                else
+                {
+                    fejl = 1;
+                }
+            }
+            while (fejl != 0);
+            return bruger;
+        }
 
         // checks if the new password is valid
         public static string Password(string password)
