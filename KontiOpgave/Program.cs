@@ -8,16 +8,19 @@ namespace KontiOpgave
         {
             // declaring variables
             string brugerlog, passlog;
-            MakeOurData makeOurData= new MakeOurData();
+            MakeOurData makeOurData = new MakeOurData();
             makeOurData.DataCreator();
+
+            Renter renter = new Renter();
+            renter.CalculateAndAddInterest();
 
             // Log in: get inputdata from user 
             Console.WriteLine("*** Log ind ***");
             Console.Write("Brugernavn: ");
             brugerlog = Console.ReadLine().ToLower();
             Console.Write("Password: ");
-            passlog = Console.ReadLine();  
-            
+            passlog = Console.ReadLine();
+
             // check if the login is valid
             // the method also returns the index i for the users folder, so it can be used later in the code
             string i = LogInd.Logind(brugerlog, passlog);
