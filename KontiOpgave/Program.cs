@@ -6,9 +6,11 @@ namespace KontiOpgave
     {
         static void Main(string[] args)
         {
-            // declaring variables
             MakeOurData makeOurData= new MakeOurData();
             makeOurData.DataChecker();
+
+            Renter renter = new Renter();
+            renter.CalculateAndAddInterest();
 
             Start start= new Start();
             start.StartMenu();                                 
@@ -29,6 +31,7 @@ namespace KontiOpgave
             Console.WriteLine("    █    █  ██████  █  █ █  █ █ ");
             Console.WriteLine("    █████  █      █ █   ██  █  █\n");
             Console.WriteLine("        *** Log ind ***\n");
+
             Console.Write("Brugernavn: ");
             brugerlog = Console.ReadLine().ToLower();
             Console.Write("Password: ");
